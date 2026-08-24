@@ -1,5 +1,9 @@
 import api from "./axios";
 
+// =========================
+// Books
+// =========================
+
 export const getBooks = async (params = {}) => {
   const response = await api.get("/books", {
     params,
@@ -10,6 +14,7 @@ export const getBooks = async (params = {}) => {
 
 export const getBookById = async (id) => {
   const response = await api.get(`/books/${id}`);
+
   return response.data;
 };
 
@@ -39,15 +44,43 @@ export const deleteBook = async (id) => {
   return response.data;
 };
 
+// =========================
+// Authors
+// =========================
+
 export const getAuthors = async () => {
   const response = await api.get("/authors");
 
   return response.data;
 };
 
+export const createAuthor = async (authorData) => {
+  const response = await api.post(
+    "/authors",
+    authorData
+  );
+
+  return response.data;
+};
+
+// =========================
+// Categories
+// =========================
+
 export const getCategories = async () => {
   const response = await api.get(
     "/categories"
+  );
+
+  return response.data;
+};
+
+export const createCategory = async (
+  categoryData
+) => {
+  const response = await api.post(
+    "/categories",
+    categoryData
   );
 
   return response.data;

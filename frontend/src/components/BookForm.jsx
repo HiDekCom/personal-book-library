@@ -14,13 +14,16 @@ function BookForm({
   const [categoryId, setCategoryId] = useState("");
   const [authorIds, setAuthorIds] = useState([]);
 
+  // =========================
+  // Load book data when editing
+  // =========================
   useEffect(() => {
     if (book) {
       setTitle(book.title || "");
       setIsbn(book.isbn || "");
       setDescription(book.description || "");
 
-      // รองรับทั้ง categoryId และ category_id
+      // รองรับ categoryId / category_id / Category.id
       setCategoryId(
         book.categoryId ||
           book.category_id ||
@@ -28,13 +31,14 @@ function BookForm({
           ""
       );
 
-      // รองรับข้อมูล authors จาก API
+      // รองรับ Authors จาก API
       setAuthorIds(
         book.Authors?.map((author) =>
           String(author.id)
         ) || []
       );
     } else {
+      // Reset form สำหรับเพิ่มหนังสือใหม่
       setTitle("");
       setIsbn("");
       setDescription("");
@@ -43,6 +47,9 @@ function BookForm({
     }
   }, [book]);
 
+  // =========================
+  // Author change
+  // =========================
   const handleAuthorChange = (e) => {
     const selectedOptions = Array.from(
       e.target.selectedOptions
@@ -55,17 +62,24 @@ function BookForm({
     );
   };
 
+  // =========================
+  // Submit
+  // =========================
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // เตรียมข้อมูลให้ตรงกับ Backend API
     const bookData = {
       title: title.trim(),
+
       isbn: isbn.trim() || null,
-      description: description.trim() || "",
+
+      description:
+        description.trim() || "",
+
       categoryId: categoryId
         ? Number(categoryId)
         : null,
+
       authorIds: authorIds.map(Number),
     };
 
@@ -89,10 +103,15 @@ function BookForm({
       </h2>
 
       <form onSubmit={handleSubmit}>
+
         {/* =========================
             Title
         ========================== */}
-        <div style={{ marginBottom: "12px" }}>
+        <div
+          style={{
+            marginBottom: "12px",
+          }}
+        >
           <label>
             ชื่อหนังสือ *
           </label>
@@ -113,7 +132,11 @@ function BookForm({
         {/* =========================
             ISBN
         ========================== */}
-        <div style={{ marginBottom: "12px" }}>
+        <div
+          style={{
+            marginBottom: "12px",
+          }}
+        >
           <label>
             ISBN
           </label>
@@ -133,7 +156,11 @@ function BookForm({
         {/* =========================
             Description
         ========================== */}
-        <div style={{ marginBottom: "12px" }}>
+        <div
+          style={{
+            marginBottom: "12px",
+          }}
+        >
           <label>
             รายละเอียด
           </label>
@@ -157,7 +184,11 @@ function BookForm({
         {/* =========================
             Category
         ========================== */}
-        <div style={{ marginBottom: "12px" }}>
+        <div
+          style={{
+            marginBottom: "12px",
+          }}
+        >
           <label>
             หมวดหมู่
           </label>
@@ -188,7 +219,11 @@ function BookForm({
         {/* =========================
             Authors
         ========================== */}
-        <div style={{ marginBottom: "12px" }}>
+        <div
+          style={{
+            marginBottom: "12px",
+          }}
+        >
           <label>
             ผู้เขียน
           </label>
@@ -250,6 +285,7 @@ function BookForm({
             ยกเลิก
           </button>
         </div>
+
       </form>
     </div>
   );

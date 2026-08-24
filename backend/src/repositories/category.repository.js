@@ -10,6 +10,18 @@ class CategoryRepository {
   async findById(id) {
     return await Category.findByPk(id);
   }
+
+  async findByName(name) {
+    return await Category.findOne({
+      where: {
+        name,
+      },
+    });
+  }
+
+  async create(categoryData) {
+    return await Category.create(categoryData);
+  }
 }
 
 module.exports = new CategoryRepository();

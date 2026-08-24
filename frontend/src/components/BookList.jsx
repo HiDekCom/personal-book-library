@@ -5,68 +5,107 @@ function BookList({
 }) {
   if (!books || books.length === 0) {
     return (
-      <p>
-        ไม่พบหนังสือ
-      </p>
+      <div className="empty-state">
+        <div className="empty-icon">📚</div>
+
+        <h3>ไม่พบหนังสือ</h3>
+
+        <p>
+          ลองเปลี่ยนคำค้นหาหรือตัวกรอง
+          หรือเพิ่มหนังสือใหม่
+        </p>
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className="book-grid">
       {books.map((book) => (
-        <div
+        <article
+          className="book-card"
           key={book.id}
-          style={{
-            border: "1px solid #ddd",
-            padding: "20px",
-            marginBottom: "15px",
-            borderRadius: "8px",
-            backgroundColor: "#fff",
-          }}
         >
-          <h3>{book.title}</h3>
+          <div className="book-card-top">
+            <div className="book-icon">
+              📖
+            </div>
 
-          <p>
-            <strong>ISBN:</strong>{" "}
-            {book.isbn || "-"}
-          </p>
+            <span className="book-id">
+              #{book.id}
+            </span>
+          </div>
 
-          <p>
-            <strong>รายละเอียด:</strong>{" "}
-            {book.description || "-"}
-          </p>
+          <div className="book-content">
+            <h3 className="book-title">
+              {book.title}
+            </h3>
 
-          <p>
-            <strong>Authors:</strong>{" "}
-            {book.Authors &&
-            book.Authors.length > 0
-              ? book.Authors
-                  .map((author) => author.name)
-                  .join(", ")
-              : "-"}
-          </p>
+            <div className="book-info">
+              <div className="info-row">
+                <span className="info-label">
+                  ISBN
+                </span>
 
-          <p>
-            <strong>Category:</strong>{" "}
-            {book.Category
-              ? book.Category.name
-              : "-"}
-          </p>
+                <span>
+                  {book.isbn || "-"}
+                </span>
+              </div>
 
-          <button
-            onClick={() => onEdit(book)}
-          >
-            Edit
-          </button>
+              <div className="info-row">
+                <span className="info-label">
+                  ผู้เขียน
+                </span>
 
-          {" "}
+                <span>
+                  {book.Authors &&
+                  book.Authors.length > 0
+                    ? book.Authors
+                        .map(
+                          (author) =>
+                            author.name
+                        )
+                        .join(", ")
+                    : "-"}
+                </span>
+              </div>
 
-          <button
-            onClick={() => onDelete(book.id)}
-          >
-            Delete
-          </button>
-        </div>
+              <div className="info-row">
+                <span className="info-label">
+                  หมวดหมู่
+                </span>
+
+                <span>
+                  {book.Category
+                    ? book.Category.name
+                    : "-"}
+                </span>
+              </div>
+            </div>
+
+            <div className="description">
+              {book.description ||
+                "ไม่มีรายละเอียดหนังสือ"}
+            </div>
+          </div>
+
+          <div className="book-actions">
+            <button
+              className="edit-button"
+              onClick={() => onEdit(book)}
+            >
+              ✏️ แก้ไข
+            </button>
+
+            <button
+              className="delete-button"
+              onClick={() =>
+                onDelete(book.id)
+              }
+            >
+              🗑️ ลบ
+            </button>
+          </div>
+        </article>
       ))}
     </div>
   );
