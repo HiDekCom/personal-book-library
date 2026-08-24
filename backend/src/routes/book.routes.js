@@ -21,4 +21,10 @@ router.delete(
   bookController.deleteBook
 );
 
+router.put(
+  "/:id",
+  authMiddleware,
+  bookController.update
+);
+
 module.exports = router;

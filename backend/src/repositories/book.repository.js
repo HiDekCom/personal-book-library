@@ -63,6 +63,28 @@ class BookRepository {
     return await this.findById(book.id);
   }
 
+  // =========================
+  // UPDATE BOOK
+  // =========================
+  async update(id, bookData, authorIds) {
+    const book = await Book.findByPk(id);
+
+    if (!book) {
+      return null;
+    }
+
+    // Update ข้อมูลหนังสือ
+    await book.update(bookData);
+
+    // Update ความสัมพันธ์กับ Authors
+    if (authorIds && authorIds.length > 0) {
+      await book.setAuthors(authorIds);
+    }
+
+    // ดึงข้อมูลล่าสุดพร้อม Category และ Authors
+    return await this.findById(id);
+  }
+
   async delete(id) {
     const book = await Book.findByPk(id);
 

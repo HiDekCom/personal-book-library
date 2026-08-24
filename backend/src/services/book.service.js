@@ -40,13 +40,20 @@ class BookService {
       throw error;
     }
 
-    if (!authorIds || !Array.isArray(authorIds) || authorIds.length === 0) {
-      const error = new Error("At least one author is required");
+    if (
+      !authorIds ||
+      !Array.isArray(authorIds) ||
+      authorIds.length === 0
+    ) {
+      const error = new Error(
+        "At least one author is required"
+      );
       error.statusCode = 400;
       throw error;
     }
 
-    const category = await categoryRepository.findById(categoryId);
+    const category =
+      await categoryRepository.findById(categoryId);
 
     if (!category) {
       const error = new Error("Category not found");
@@ -54,10 +61,13 @@ class BookService {
       throw error;
     }
 
-    const authors = await authorRepository.findByIds(authorIds);
+    const authors =
+      await authorRepository.findByIds(authorIds);
 
     if (authors.length !== authorIds.length) {
-      const error = new Error("One or more authors not found");
+      const error = new Error(
+        "One or more authors not found"
+      );
       error.statusCode = 400;
       throw error;
     }
@@ -75,8 +85,100 @@ class BookService {
     return book;
   }
 
+  // =========================
+  // UPDATE BOOK
+  // =========================
+  async updateBook(id, bookData) {
+    const {
+      title,
+      isbn,
+      description,
+      categoryId,
+      authorIds,
+    } = bookData;
+
+    // ตรวจสอบว่าหนังสือมีอยู่จริง
+    const existingBook =
+      await bookRepository.findById(id);
+
+    if (!existingBook) {
+      const error = new Error("Book not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    // ตรวจสอบ title
+    if (!title) {
+      const error = new Error("Title is required");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // ตรวจสอบ category
+    if (!categoryId) {
+      const error = new Error(
+        "Category is required"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // ตรวจสอบ author
+    if (
+      !authorIds ||
+      !Array.isArray(authorIds) ||
+      authorIds.length === 0
+    ) {
+      const error = new Error(
+        "At least one author is required"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // ตรวจสอบ category ว่ามีจริง
+    const category =
+      await categoryRepository.findById(categoryId);
+
+    if (!category) {
+      const error = new Error(
+        "Category not found"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // ตรวจสอบ authors ว่ามีจริง
+    const authors =
+      await authorRepository.findByIds(authorIds);
+
+    if (authors.length !== authorIds.length) {
+      const error = new Error(
+        "One or more authors not found"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // Update
+    const updatedBook =
+      await bookRepository.update(
+        id,
+        {
+          title,
+          isbn,
+          description,
+          category_id: categoryId,
+        },
+        authorIds
+      );
+
+    return updatedBook;
+  }
+
   async deleteBook(id) {
-    const book = await bookRepository.findById(id);
+    const book =
+      await bookRepository.findById(id);
 
     if (!book) {
       const error = new Error("Book not found");
