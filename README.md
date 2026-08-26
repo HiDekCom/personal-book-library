@@ -118,7 +118,7 @@ personal-book-library/
 
 # 🚀 Installation
 1. Clone Project
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone (https://github.com/HiDekCom/personal-book-library.git)
 เข้าไปยัง Project: cd personal-book-library
 
 ---
@@ -136,7 +136,7 @@ DB_NAME=personal_book_library
 DB_USER=root
 DB_PASSWORD=
 
-JWT_SECRET=your_jwt_secret ##เปลี่ยนค่า JWT_SECRET เป็น Secret ที่ใช้จริงของโปรเจกต์
+JWT_SECRET=personal_book_library_secret_2026
 JWT_EXPIRES_IN=1d
 
 # 🗄️ Database Setup
