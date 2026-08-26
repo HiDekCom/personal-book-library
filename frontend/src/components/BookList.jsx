@@ -20,7 +20,7 @@ function BookList({
 
   return (
     <div className="book-grid">
-      {books.map((book) => (
+      {books.map((book, index) => (
         <article
           className="book-card"
           key={book.id}
@@ -31,7 +31,7 @@ function BookList({
             </div>
 
             <span className="book-id">
-              #{book.id}
+              #{index + 1}
             </span>
           </div>
 

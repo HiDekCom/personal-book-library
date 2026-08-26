@@ -543,13 +543,12 @@ function Books() {
         )}
 
         {/* =========================
-            Book Form
-        ========================== */}
-
-        {showForm && (
+            Add Book Form
+        ========================= */}
+        {showForm && !editingBook && (
           <section className="form-section">
             <BookForm
-              book={editingBook}
+              book={null}
               authors={authors}
               categories={categories}
               onSubmit={handleFormSubmit}
@@ -557,6 +556,46 @@ function Books() {
               loading={formLoading}
             />
           </section>
+        )}
+
+        {/* =========================
+            Edit Book Modal
+        ========================= */}
+        {showForm && editingBook && (
+          <div
+            className="modal-overlay"
+            onClick={handleCancelForm}
+          >
+            <div
+              className="modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-header">
+                <div>
+                  <h2>✏️ แก้ไขหนังสือ</h2>
+                  <p>แก้ไขข้อมูลหนังสือ</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="modal-close-button"
+                  onClick={handleCancelForm}
+                  disabled={formLoading}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <BookForm
+                book={editingBook}
+                authors={authors}
+                categories={categories}
+                onSubmit={handleFormSubmit}
+                onCancel={handleCancelForm}
+                loading={formLoading}
+              />
+            </div>
+          </div>
         )}
 
         {/* =========================

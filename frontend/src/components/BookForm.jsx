@@ -87,15 +87,8 @@ function BookForm({
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        padding: "20px",
-        marginBottom: "20px",
-        borderRadius: "8px",
-        backgroundColor: "#fff",
-      }}
-    >
+    <div className="book-form">
+      
       <h2>
         {book
           ? "แก้ไขหนังสือ"
