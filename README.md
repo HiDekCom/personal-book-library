@@ -77,6 +77,10 @@ personal-book-library/
 │   ├── package-lock.json
 │   └── README.md
 │
+├── database/
+│   ├── ER Diagram Database.png
+│   └── schema.sql
+│
 ├── frontend/
 │   ├── src/
 │   │   ├── api/
