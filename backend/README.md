@@ -103,7 +103,7 @@ JWT_SECRET=your_jwt_secret
 ---
 
 # ▶️ Run Server
-Development: npm run dev
+Development: npm start
 Backend: http://localhost:5000
 
 ---
